@@ -1,0 +1,52 @@
+#Notes during Build
+
+#Day 1
+#instead of pip, gonna use uv for the first time
+$ uv init
+uv python pin 3.12
+
+'''
+The New Files
+pyproject.toml: This is your project’s brain. It lists your dependencies and project metadata. Keep this.
+
+.python-version: This tells uv exactly which Python version to use when you run uv run. Keep this.
+
+hello.py: This is just a dummy file uv generates. Delete it since you already have your own project files.
+
+.gitignore: uv creates this to make sure you don't accidentally upload your virtual environment (.venv) to GitHub. Keep this.
+'''
+
+'''
+The pyproject.toml is the New Standard
+Modern Python development is moving away from requirements.txt toward pyproject.toml. When you run uv add, it updates this file.
+
+If another uv user downloads your repo, they just type uv sync and they are done.
+
+If a non-uv user downloads it, most modern tools (like pip or Poetry) can read the pyproject.toml directly.
+
+How to keep a requirements.txt for everyone else
+If you still want to provide a requirements.txt for people who strictly use pip, uv makes this a one-second task. You don't "maintain" it manually; you generate it from your uv setup.
+
+Run this command before you push to GitHub:
+
+PowerShell
+uv export --format requirements-txt > requirements.txt
+Why this is better:
+
+Accuracy: It generates the file based on your exact working environment.
+
+No Manual Editing: You never have to type a version number into a text file again.
+
+Compatibility: Anyone can still run pip install -r requirements.txt like they always have.
+
+What to actually commit to GitHub?
+When you push your code, make sure your repo includes:
+
+pyproject.toml: Essential.
+
+uv.lock: (Optional but recommended) This ensures other people get the exact same sub-dependencies as you.
+
+requirements.txt: (Optional) For people not using modern tools yet.
+
+README.md: Just add a small note: "This project uses uv. To set up, run uv sync."
+'''
